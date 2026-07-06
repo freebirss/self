@@ -1,5 +1,4 @@
-InlineKeyboardButton
-InlineKeyboardMarkup
+telegram
 telethon
 psutil
 pytz
