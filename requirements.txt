@@ -1,3 +1,9 @@
+InlineKeyboardButton
+InlineKeyboardMarkup
+telethon
+psutil
+pytz
+requests
 pyrogram
 tgcrypto
 aiohttp
