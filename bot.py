@@ -39,7 +39,7 @@ class TelegramAuthBot:
         self.active_bets = {}  # اضافه شد
         self.group_bets = {}   # اضافه شد
         self.channel_username = "fucklinkchan"
-        self.owner_id = HusteRIX
+        self.owner_id = 7727625618
         
         # دیتابیس کاربران
         self.init_users_db()
