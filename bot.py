@@ -26,7 +26,7 @@ CHECK_MEMBERSHIP, ACTIVATION_PANEL, GET_PHONE, GET_CODE, COIN_PURCHASE, CONFIRM_
 
 class TelegramAuthBot:
     def __init__(self, token, api_id, api_hash):
-        self.token = token
+        self.token = 8271181567:AAHEFu9TgsQBkNaqOQr__Hk5hrmOOXXCPew
         self.api_id = api_id
         self.api_hash = api_hash
         self.application = Application.builder().token(token).build()
