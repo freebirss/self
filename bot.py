@@ -300,7 +300,7 @@ class TelegramAuthBot:
         welcome_text = (
             "🌐 𝙅𝙤𝙞𝙣 𝙊𝙪𝙧 𝘾𝙝𝙖𝙣𝙣𝙚𝙡 💫\n\n"
             "Before using the bot, make sure you've joined our official channel 💎\n"
-            "👉 𝚃𝚊𝚙 𝚃𝚘 𝙹𝚘𝚞𝚛𝚗: [@Sourrce_kade]\n"
+            "👉 𝚃𝚊𝚙 𝚃𝚘 𝙹𝚘𝚞𝚛𝚗: [@self_HusteRIX]\n"
             "🚀 After joining, come back and tap \"✅ بررسی\""
         )
         
