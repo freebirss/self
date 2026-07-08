@@ -355,7 +355,7 @@ class TelegramAuthBot:
             except UserNotParticipantError:
                 await query.edit_message_text(
                     "❌ شما هنوز عضو کانال نشده‌اید!\n\n"
-                    "لطفاً ابتدا به کانال @Sourrce_kade بپیوندید سپس روی '✅ بررسی' کلیک کنید.",
+                    "لطفاً ابتدا به کانال @self_HusteRIX بپیوندید سپس روی '✅ بررسی' کلیک کنید.",
                     reply_markup=self.create_welcome_keyboard()
                 )
                 await client.disconnect()
