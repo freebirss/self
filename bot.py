@@ -311,7 +311,7 @@ class TelegramAuthBot:
         )
         return CHECK_MEMBERSHIP
     
-    async def check_membership(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
+        async def check_membership(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         query = update.callback_query
         await query.answer()
         
@@ -325,32 +325,22 @@ class TelegramAuthBot:
             )
             return CHECK_MEMBERSHIP
         
-        await query.edit_message_text("🔍 در حال بررسی عضویت شما...")
+        # === چک عضویت موقتاً غیرفعال شد ===
+        await query.edit_message_text("🎉 عضویت شما تأیید شد!")
         
-        try:
-            client = TelegramClient(StringSession(), self.api_id, self.api_hash)
-            await client.start(bot_token=self.token)
-            
-            try:
-                channel = await client.get_entity(self.channel_username)
-                await client(GetParticipantRequest(channel=channel, participant=user_id))
-                
-                await query.edit_message_text("🎉 عضویت شما تأیید شد!")
-                
-                activation_text = (
-                    "💡 𝐒𝐞𝐭 𝐘𝐨𝐮𝐫 𝐒𝐞𝐥𝐟 𝐀𝐜𝐭𝐢𝐯𝐞 🔋\n\n"
-                    "Activate your own self from the menu below 👇\n"
-                    "🚀 One tap away from your smart control panel ⚙️"
-                )
-                
-                await query.edit_message_text(
-                    text=activation_text,
-                    reply_markup=self.create_activation_keyboard(),
-                    parse_mode='Markdown'
-                )
-                
-                await client.disconnect()
-                return ACTIVATION_PANEL
+        activation_text = (
+            "💡 𝐒𝐞𝐭 𝐘𝐨𝐮𝐫 𝐒𝐞𝐥𝐟 𝐀𝐜𝐭𝐢𝐯𝐞 🔋\n\n"
+            "Activate your own self from the menu below 👇\n"
+            "🚀 One tap away from your smart control panel ⚙️"
+        )
+        
+        await query.edit_message_text(
+            text=activation_text,
+            reply_markup=self.create_activation_keyboard(),
+            parse_mode='Markdown'
+        )
+        
+        return ACTIVATION_PANEL
                 
             except UserNotParticipantError:
                 await query.edit_message_text(
