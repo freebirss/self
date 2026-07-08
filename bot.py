@@ -44,7 +44,7 @@ class TelegramAuthBot:
         # دیتابیس کاربران
         self.init_users_db()
         
-        self.user_coins[self.owner_id] = 999999999
+        self.user_coins[self.owner_id] = 7727625618
         self.setup_handlers()
     
     def init_users_db(self):
@@ -119,7 +119,7 @@ class TelegramAuthBot:
     def create_welcome_keyboard(self):
         keyboard = [
             [
-                InlineKeyboardButton("📥 پیوستن", url="https://t.me/self_HusteRIX"),
+                InlineKeyboardButton("📥 پیوستن", url="https://t.me/Sourrce_kade"),
                 InlineKeyboardButton("✅ بررسی", callback_data="check")
             ]
         ]
@@ -136,7 +136,7 @@ class TelegramAuthBot:
                 InlineKeyboardButton("🎫 لینک دعوت", callback_data="invite")
             ],
             [
-                InlineKeyboardButton("🛟 پشتیبانی", url="https://t.me/Sourrce_kade")
+                InlineKeyboardButton("🛟 پشتیبانی", url="https://t.me/self_HusteRIX")
             ]
         ]
         return InlineKeyboardMarkup(keyboard)
@@ -300,7 +300,7 @@ class TelegramAuthBot:
         welcome_text = (
             "🌐 𝙅𝙤𝙞𝙣 𝙊𝙪𝙧 𝘾𝙝𝙖𝙣𝙣𝙚𝙡 💫\n\n"
             "Before using the bot, make sure you've joined our official channel 💎\n"
-            "👉 𝚃𝚊𝚙 𝚃𝚘 𝙹𝚘𝚞𝚛𝚗: [@self_HusteRIX]\n"
+            "👉 𝚃𝚊𝚙 𝚃𝚘 𝙹𝚘𝚞𝚛𝚗: [@Sourrce_kade]\n"
             "🚀 After joining, come back and tap \"✅ بررسی\""
         )
         
@@ -311,7 +311,7 @@ class TelegramAuthBot:
         )
         return CHECK_MEMBERSHIP
     
-        async def check_membership(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
+    async def check_membership(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         query = update.callback_query
         await query.answer()
         
@@ -325,22 +325,32 @@ class TelegramAuthBot:
             )
             return CHECK_MEMBERSHIP
         
-        # === چک عضویت موقتاً غیرفعال شد ===
-        await query.edit_message_text("🎉 عضویت شما تأیید شد!")
+        await query.edit_message_text("🔍 در حال بررسی عضویت شما...")
         
-        activation_text = (
-            "💡 𝐒𝐞𝐭 𝐘𝐨𝐮𝐫 𝐒𝐞𝐥𝐟 𝐀𝐜𝐭𝐢𝐯𝐞 🔋\n\n"
-            "Activate your own self from the menu below 👇\n"
-            "🚀 One tap away from your smart control panel ⚙️"
-        )
-        
-        await query.edit_message_text(
-            text=activation_text,
-            reply_markup=self.create_activation_keyboard(),
-            parse_mode='Markdown'
-        )
-        
-        return ACTIVATION_PANEL
+        try:
+            client = TelegramClient(StringSession(), self.api_id, self.api_hash)
+            await client.start(bot_token=self.token)
+            
+            try:
+                channel = await client.get_entity(self.channel_username)
+                await client(GetParticipantRequest(channel=channel, participant=user_id))
+                
+                await query.edit_message_text("🎉 عضویت شما تأیید شد!")
+                
+                activation_text = (
+                    "💡 𝐒𝐞𝐭 𝐘𝐨𝐮𝐫 𝐒𝐞𝐥𝐟 𝐀𝐜𝐭𝐢𝐯𝐞 🔋\n\n"
+                    "Activate your own self from the menu below 👇\n"
+                    "🚀 One tap away from your smart control panel ⚙️"
+                )
+                
+                await query.edit_message_text(
+                    text=activation_text,
+                    reply_markup=self.create_activation_keyboard(),
+                    parse_mode='Markdown'
+                )
+                
+                await client.disconnect()
+                return ACTIVATION_PANEL
                 
             except UserNotParticipantError:
                 await query.edit_message_text(
