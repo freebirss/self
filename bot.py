@@ -119,7 +119,7 @@ class TelegramAuthBot:
     def create_welcome_keyboard(self):
         keyboard = [
             [
-                InlineKeyboardButton("📥 پیوستن", url="https://t.me/Sourrce_kade"),
+                InlineKeyboardButton("📥 پیوستن", url="https://t.me/self_HusteRIX"),
                 InlineKeyboardButton("✅ بررسی", callback_data="check")
             ]
         ]
